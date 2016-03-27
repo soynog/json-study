@@ -31,14 +31,19 @@ JSON only looks like an object. It is not an object.
 
 As it makes sense to you please write the following in JSON format:
 
--  Jason has many things...
-- A Cat named Mr.Kitty
-- Two roomates named Dave and Miller
-- A Love of the Red Sox, Patriots and Bruins
-- Has lived in two places recently: 123 Fake street, and 2 Muchinfo Road
+  Jason has many things...
+  A Cat named Mr.Kitty
+  Two roomates named Dave and Miller
+  A Love of the Red Sox, Patriots and Bruins
+  Has lived in two places recently: 123 Fake street, and 2 Muchinfo Road
 
 ```json
-<!-- your answer here -->
+{"things-Jason-has": {
+  "cat": "Mr. Kitty",
+  "roommates": ["Dave", "Miller"],
+  "loves": ["Red Sox", "Patriots", "Bruins"],
+  "recent-addresses": ["123 Fake Street", "2 Muchinfo Road"]
+}}
 ```
 
 ...I forgot, my roomate Dave has two goldfish, one named Bob (he's red) and the
@@ -46,15 +51,46 @@ other named Mr.MagicNibbles (yellow) and bites a bit. Please copy the JSON you
 already wrote and include the information about Dave's fish.
 
 ```json
-<!-- your answer here -->
+{ "name":"Jason",
+  "things" : {
+    "cat": "Mr. Kitty",
+    "roommates": [
+      { "name": "Dave",
+        "things": {
+          "goldfish": [
+            { "name": "Bob", "color": "red", "bites": false},
+            { "name": "Mr. MagicNibbles", "color": "yellow", "bites": true}
+          ]
+        }
+      },
+      { "name": "Miller", "things": []}
+    ],
+    "loves": ["Red Sox", "Patriots", "Bruins"],
+    "recent-addresses": ["123 Fake Street", "2 Muchinfo Road"]
+  }
+}
 ```
 
 ## JSON Methods
 
 Using the JSON your wrote above, can you write a method on the JSON?
 
-```json
-<!-- your answer here -->
+```json`
+const petRoommatesGoldfish = function(json,roommateName,fishName) {
+  let roomies = json.things.roommates;
+  for ( let i = 0; i < roomies.length; i++ ) {
+    if (roomies[i].name === roommateName && roomies[i].things) {
+      let fishies = (roomies[i].things.goldfish || []);
+      for (let j = 0; j < fishies.length; j++) {
+        if (fishies[j].name === fishName) {
+          return (fishies[j].bites ? "YOW!!!" : "Aww, nice fishy.");
+        }
+      }
+      return `${roomies[i].name} doesn't have a fish by that name.`;
+    }
+  }
+  return "That roommate is imaginary.";
+};
 ```
 
 ## JSON Comments
@@ -62,5 +98,5 @@ Using the JSON your wrote above, can you write a method on the JSON?
 Using the JSON your wrote above, can you write a comment in the JSON?
 
 ```json
-<!-- your answer here -->
+Nope. No comments in JSON!
 ```
